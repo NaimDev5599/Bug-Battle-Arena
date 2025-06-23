@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Trophy, Bug as BugIcon, Sword, Coins, Award, User, HelpCircle, LogOut, QrCode } from 'lucide-react';
+import { Trophy, Bug as BugIcon, Sword, Coins, Award, User, HelpCircle, LogOut, QrCode, Sparkles, Star, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGameData } from '@/hooks/useGameData';
@@ -200,8 +200,16 @@ const Index = () => {
 
   if (authLoading || gameLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-200 via-pink-200 to-yellow-200 flex items-center justify-center">
-        <div className="text-xl sm:text-2xl font-black text-purple-800">🐛 Loading Bug Adventure... 🐛</div>
+      <div className="min-h-screen game-background flex items-center justify-center safe-area">
+        <div className="text-center animate-bounce-in">
+          <div className="loading-spinner mx-auto mb-6"></div>
+          <div className="text-2xl font-black bubble-text animate-float">
+            🐛✨ Loading Bug Adventure... ✨🐛
+          </div>
+          <div className="mt-4 text-lg font-bold text-purple-700 animate-wiggle">
+            Get ready for an amazing journey! 🚀
+          </div>
+        </div>
       </div>
     );
   }
@@ -212,70 +220,83 @@ const Index = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-200 via-pink-200 to-yellow-200 p-4 flex items-center justify-center">
-        <Card className="border-4 sm:border-6 border-purple-400 rounded-3xl bg-gradient-to-br from-purple-100 to-pink-200 max-w-md w-full">
-          <CardContent className="p-4 sm:p-6">
-            <div className="text-center mb-6">
-              <h1 className="text-2xl sm:text-3xl font-black text-purple-800 mb-4">
-                🎮 Welcome to Bug Adventure! 🎮
+      <div className="min-h-screen game-background p-4 flex items-center justify-center safe-area app-container">
+        <Card className="border-8 border-purple-500 rounded-[2rem] bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 max-w-md w-full animate-bounce-in cartoon-shadow">
+          <CardContent className="p-6">
+            <div className="text-center mb-8">
+              <div className="text-6xl mb-4 animate-wiggle">🎮</div>
+              <h1 className="text-3xl font-black bubble-text mb-4 animate-float">
+                Welcome to Bug Adventure!
               </h1>
-              <p className="text-base sm:text-lg font-bold text-purple-700">
-                🌟 Choose how you want to play! 🌟
+              <div className="flex justify-center space-x-2 mb-4">
+                <Star className="w-6 h-6 text-yellow-500 animate-sparkle" />
+                <Sparkles className="w-6 h-6 text-pink-500 animate-sparkle" style={{animationDelay: '0.5s'}} />
+                <Star className="w-6 h-6 text-blue-500 animate-sparkle" style={{animationDelay: '1s'}} />
+              </div>
+              <p className="text-lg font-bold text-purple-700 animate-float" style={{animationDelay: '0.5s'}}>
+                Choose how you want to play!
               </p>
             </div>
 
             <div className="space-y-4">
               <Button
                 onClick={() => setShowAuthPage(true)}
-                className="w-full h-16 sm:h-20 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl transform hover:scale-105 transition-all shadow-xl"
+                variant="success"
+                size="mobile"
+                className="w-full h-16 animate-glow"
               >
-                <div className="flex flex-col items-center gap-1 sm:gap-2">
-                  <User className="w-5 h-5 sm:w-6 sm:h-6" />
-                  <div className="text-base sm:text-lg font-black">🔐 Sign Up / Sign In</div>
-                  <div className="text-xs sm:text-sm opacity-90">Save your progress forever!</div>
+                <div className="flex flex-col items-center gap-1">
+                  <div className="flex items-center gap-2">
+                    <User className="w-6 h-6" />
+                    <Zap className="w-5 h-5 animate-sparkle" />
+                  </div>
+                  <div className="text-lg font-black">🔐 Sign Up / Sign In</div>
+                  <div className="text-sm opacity-90">Save your progress forever!</div>
                 </div>
               </Button>
 
               <Button
                 onClick={() => {}} // This will show the game in anonymous mode
-                variant="outline"
-                className="w-full h-16 sm:h-20 bg-gradient-to-r from-orange-200 to-yellow-200 hover:from-orange-300 hover:to-yellow-300 border-4 border-orange-400 text-orange-800 rounded-2xl transform hover:scale-105 transition-all shadow-xl"
+                variant="warning"
+                size="mobile"
+                className="w-full h-16"
               >
-                <div className="flex flex-col items-center gap-1 sm:gap-2">
-                  <div className="text-base sm:text-lg font-black">🎯 Play Anonymously</div>
-                  <div className="text-xs sm:text-sm">Quick play - progress not saved</div>
+                <div className="flex flex-col items-center gap-1">
+                  <div className="text-lg font-black">🎯 Play Anonymously</div>
+                  <div className="text-sm opacity-90">Quick play - progress not saved</div>
                 </div>
               </Button>
 
               <Button
                 onClick={() => setShowQRCode(!showQRCode)}
                 variant="outline"
-                className="w-full h-12 bg-gradient-to-r from-blue-200 to-purple-200 hover:from-blue-300 hover:to-purple-300 border-2 border-blue-400 text-blue-800 rounded-2xl transform hover:scale-105 transition-all shadow-lg"
+                size="mobile"
+                className="w-full"
               >
                 <div className="flex items-center gap-2">
                   <QrCode className="w-5 h-5" />
-                  <div className="text-sm font-bold">📱 Mobile QR Code</div>
+                  <div className="font-bold">📱 Mobile QR Code</div>
                 </div>
               </Button>
 
               {showQRCode && (
-                <div className="bg-white p-4 rounded-2xl border-2 border-blue-300 text-center">
+                <div className="bg-white p-4 rounded-2xl border-4 border-blue-500 text-center cartoon-shadow animate-bounce-in">
                   <p className="text-sm font-bold text-blue-800 mb-2">Scan to play on mobile:</p>
-                  <div className="bg-gray-100 p-4 rounded-lg">
-                    <p className="text-xs text-gray-600 break-all">
+                  <div className="bg-gray-100 p-4 rounded-lg cartoon-border">
+                    <p className="text-xs text-gray-600 break-all font-mono">
                       {window.location.href}
                     </p>
                   </div>
-                  <p className="text-xs text-blue-600 mt-2">
-                    📱 Open in mobile browser for best vertical/horizontal play experience!
+                  <p className="text-xs text-blue-600 mt-2 font-bold">
+                    📱 Perfect for mobile gaming experience! 📱
                   </p>
                 </div>
               )}
             </div>
 
-            <div className="bg-blue-100 p-3 sm:p-4 rounded-2xl border-2 border-blue-300 mt-4">
-              <p className="text-xs sm:text-sm text-blue-800 font-bold text-center">
-                💡 Tip: Sign up to keep your bug collection and progress safe!
+            <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-4 rounded-2xl border-4 border-blue-400 mt-6 cartoon-shadow animate-float">
+              <p className="text-sm text-blue-800 font-black text-center">
+                💡 Tip: Sign up to keep your bug collection and progress safe! 💡
               </p>
             </div>
           </CardContent>
@@ -288,7 +309,22 @@ const Index = () => {
   const isGameComplete = gameState.badges >= 10;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-200 via-pink-200 to-yellow-200 p-2 sm:p-4 animate-fade-in">
+    <div className="min-h-screen game-background mobile-scroll safe-area app-container">
+      <div className="particles">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="particle animate-sparkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+      
       <GameTutorial 
         isOpen={showTutorial}
         onClose={() => setShowTutorial(false)}
@@ -296,76 +332,81 @@ const Index = () => {
         gameState={gameState}
       />
       
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-4 bg-gradient-to-r from-rainbow-200 via-yellow-200 to-pink-200 p-3 sm:p-6 rounded-2xl border-2 sm:border-4 border-yellow-300 shadow-xl transform hover:scale-105 transition-all">
-          <div className="flex justify-between items-center mb-2 sm:mb-4">
-            <div className="animate-spin-slow text-xl sm:text-2xl">🎪</div>
-            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-yellow-600 animate-bounce drop-shadow-lg">
+      <div className="max-w-6xl mx-auto p-2 sm:p-4">
+        {/* Enhanced Mobile Header */}
+        <div className="text-center mb-6 bg-gradient-to-r from-purple-200 via-pink-200 to-yellow-200 p-4 sm:p-6 rounded-[2rem] border-6 border-purple-500 cartoon-shadow animate-bounce-in">
+          <div className="flex justify-between items-center mb-4">
+            <div className="animate-wiggle text-2xl">🎪</div>
+            <h1 className="text-2xl sm:text-4xl font-black bubble-text animate-float drop-shadow-lg">
               🐛✨ BUG ADVENTURE ✨🐛
             </h1>
-            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2">
+            <div className="flex flex-col items-center gap-2">
               <Button 
                 onClick={() => setShowTutorial(true)}
-                className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white border-none rounded-2xl font-black text-xs sm:text-base px-2 sm:px-6 py-1 sm:py-3 transform hover:scale-110 transition-all shadow-xl"
+                variant="outline"
+                size="sm"
+                className="animate-glow"
               >
-                <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                📚 Help
+                <HelpCircle className="w-4 h-4 mr-1" />
+                📚
               </Button>
               {user && (
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <div className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-green-300 to-emerald-400 px-2 sm:px-6 py-1 sm:py-3 rounded-2xl border-2 sm:border-4 border-green-500 shadow-lg transform hover:scale-110 transition-all">
-                    <User className="w-3 h-3 sm:w-4 sm:h-4 text-green-700" />
-                    <span className="font-black text-green-800 text-xs sm:text-base">Hi, Bug Trainer! 🎉</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 bg-gradient-to-r from-green-400 to-emerald-500 px-3 py-2 rounded-2xl border-3 border-green-600 cartoon-shadow animate-float">
+                    <User className="w-4 h-4 text-white" />
+                    <span className="font-black text-white text-sm">Hi! 🎉</span>
                   </div>
                   <Button
                     onClick={handleSignOut}
                     size="sm"
-                    variant="outline"
-                    className="bg-gradient-to-r from-red-200 to-pink-200 hover:from-red-300 hover:to-pink-300 border-2 border-red-400 text-red-800 rounded-2xl font-black transform hover:scale-110 transition-all text-xs p-1 sm:p-2"
+                    variant="destructive"
+                    className="p-2"
                   >
-                    <LogOut className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <LogOut className="w-4 h-4" />
                   </Button>
                 </div>
               )}
             </div>
           </div>
-          <p className="text-base sm:text-lg lg:text-xl text-purple-800 font-black mb-2 sm:mb-4 drop-shadow-md">🌟 Catch bugs, train them, and battle bosses! 🌟</p>
+          
+          <p className="text-lg font-black text-purple-800 mb-4 cartoon-text animate-float" style={{animationDelay: '0.5s'}}>
+            🌟 Catch bugs, train them, and battle bosses! 🌟
+          </p>
           
           {isGameComplete && (
-            <div className="mt-2 sm:mt-4 p-3 sm:p-6 bg-gradient-to-r from-rainbow-300 via-yellow-300 to-pink-300 border-2 sm:border-4 border-yellow-500 rounded-2xl animate-pulse shadow-xl">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-yellow-900">🎊 ULTIMATE CHAMPION! 🎊</h2>
-              <p className="text-base sm:text-lg lg:text-xl text-yellow-800 font-bold">⭐ You collected all 10 badges! ⭐</p>
+            <div className="mt-4 p-6 animate-rainbow border-6 border-yellow-500 rounded-[2rem] animate-bounce cartoon-shadow">
+              <h2 className="text-2xl font-black text-white cartoon-text animate-wiggle">🎊 ULTIMATE CHAMPION! 🎊</h2>
+              <p className="text-lg text-white font-bold cartoon-text">⭐ You collected all 10 badges! ⭐</p>
             </div>
           )}
           
-          {/* Enhanced Stats */}
-          <div className="flex justify-center gap-1 sm:gap-2 mt-2 sm:mt-4 flex-wrap">
-            <Badge className="flex items-center gap-1 text-xs sm:text-base p-1 sm:p-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-2xl shadow-xl transform hover:scale-110 transition-all border-2 border-blue-300">
-              <BugIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-              🐛 {gameState.playerBugs.length}
+          {/* Enhanced Mobile Stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mt-4">
+            <Badge className="flex flex-col items-center gap-1 p-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-2xl cartoon-shadow transform hover:scale-105 transition-all animate-float">
+              <BugIcon className="w-5 h-5" />
+              <span className="font-black">🐛 {gameState.playerBugs.length}</span>
             </Badge>
-            <Badge className="flex items-center gap-1 text-xs sm:text-base p-1 sm:p-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl shadow-xl transform hover:scale-110 transition-all border-2 border-green-300">
-              <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-              🏆 {gameState.victories}
+            <Badge className="flex flex-col items-center gap-1 p-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl cartoon-shadow transform hover:scale-105 transition-all animate-float" style={{animationDelay: '0.2s'}}>
+              <Trophy className="w-5 h-5" />
+              <span className="font-black">🏆 {gameState.victories}</span>
             </Badge>
-            <Badge className="flex items-center gap-1 text-xs sm:text-base p-1 sm:p-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-2xl shadow-xl transform hover:scale-110 transition-all border-2 border-red-300">
-              <Sword className="w-3 h-3 sm:w-4 sm:h-4" />
-              ⚔️ Lv{gameState.currentNPCLevel}
+            <Badge className="flex flex-col items-center gap-1 p-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-2xl cartoon-shadow transform hover:scale-105 transition-all animate-float" style={{animationDelay: '0.4s'}}>
+              <Sword className="w-5 h-5" />
+              <span className="font-black">⚔️ Lv{gameState.currentNPCLevel}</span>
             </Badge>
-            <Badge className="flex items-center gap-1 text-xs sm:text-base p-1 sm:p-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white rounded-2xl shadow-xl transform hover:scale-110 transition-all border-2 border-yellow-300">
-              <Coins className="w-3 h-3 sm:w-4 sm:h-4" />
-              💰 {gameState.points}
+            <Badge className="flex flex-col items-center gap-1 p-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white rounded-2xl cartoon-shadow transform hover:scale-105 transition-all animate-float" style={{animationDelay: '0.6s'}}>
+              <Coins className="w-5 h-5" />
+              <span className="font-black">💰 {gameState.points}</span>
             </Badge>
-            <Badge className="flex items-center gap-1 text-xs sm:text-base p-1 sm:p-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-2xl shadow-xl transform hover:scale-110 transition-all border-2 border-purple-300">
-              <Award className="w-3 h-3 sm:w-4 sm:h-4" />
-              🥇 {gameState.badges}/10
+            <Badge className="flex flex-col items-center gap-1 p-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-2xl cartoon-shadow transform hover:scale-105 transition-all animate-float col-span-2 sm:col-span-1" style={{animationDelay: '0.8s'}}>
+              <Award className="w-5 h-5" />
+              <span className="font-black">🥇 {gameState.badges}/10</span>
             </Badge>
           </div>
 
           {currentNPC.isBoss && (
-            <div className="mt-2 sm:mt-4 p-2 sm:p-4 bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 border-2 sm:border-4 border-purple-500 rounded-2xl animate-pulse shadow-xl">
-              <p className="text-base sm:text-lg lg:text-2xl text-purple-900 font-black">
+            <div className="mt-4 p-4 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 border-6 border-purple-600 rounded-[2rem] animate-glow cartoon-shadow">
+              <p className="text-xl text-white font-black cartoon-text animate-wiggle">
                 🔥 BOSS BATTLE READY! 🔥<br/>
                 💪 Defeat {currentNPC.name} for a badge! 💪
               </p>
@@ -374,62 +415,62 @@ const Index = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 mb-4 bg-gradient-to-r from-purple-300 to-pink-300 rounded-2xl p-1 sm:p-2 border-2 sm:border-4 border-purple-400 shadow-xl">
-            <TabsTrigger value="collection" className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2">🏠 Home</TabsTrigger>
-            <TabsTrigger value="catcher" className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2">🎣 Catch</TabsTrigger>
-            <TabsTrigger value="battle" disabled={!gameState.selectedBug} className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2">
-              ⚔️ Battle
-            </TabsTrigger>
-            <TabsTrigger value="release" className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2">🆓 Release</TabsTrigger>
-            <TabsTrigger value="levelup" className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2 hidden lg:block">📈 Level</TabsTrigger>
-            <TabsTrigger value="shop" className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2 hidden lg:block">🏪 Shop</TabsTrigger>
-            <TabsTrigger value="badges" className="rounded-xl font-black text-purple-800 text-xs sm:text-sm p-1 sm:p-2 hidden lg:block">🏆 Badges</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 mb-4 bg-gradient-to-r from-purple-300 to-pink-300 rounded-[2rem] p-2 border-4 border-purple-500 cartoon-shadow">
+            <TabsTrigger value="collection" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">🏠</TabsTrigger>
+            <TabsTrigger value="catcher" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">🎣</TabsTrigger>
+            <TabsTrigger value="battle" disabled={!gameState.selectedBug} className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">⚔️</TabsTrigger>
+            <TabsTrigger value="release" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">🆓</TabsTrigger>
+            <TabsTrigger value="levelup" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target hidden lg:block">📈</TabsTrigger>
+            <TabsTrigger value="shop" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target hidden lg:block">🏪</TabsTrigger>
+            <TabsTrigger value="badges" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target hidden lg:block">🏆</TabsTrigger>
           </TabsList>
 
           {/* Mobile-specific additional tabs for smaller screens */}
           {(activeTab === 'levelup' || activeTab === 'shop' || activeTab === 'badges') && (
             <div className="lg:hidden mb-4">
               <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="grid w-full grid-cols-3 bg-gradient-to-r from-purple-300 to-pink-300 rounded-2xl p-1 border-2 border-purple-400 shadow-xl">
-                  <TabsTrigger value="levelup" className="rounded-xl font-black text-purple-800 text-xs p-1">📈 Level</TabsTrigger>
-                  <TabsTrigger value="shop" className="rounded-xl font-black text-purple-800 text-xs p-1">🏪 Shop</TabsTrigger>
-                  <TabsTrigger value="badges" className="rounded-xl font-black text-purple-800 text-xs p-1">🏆 Badges</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-3 bg-gradient-to-r from-purple-300 to-pink-300 rounded-[2rem] p-2 border-4 border-purple-500 cartoon-shadow">
+                  <TabsTrigger value="levelup" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">📈</TabsTrigger>
+                  <TabsTrigger value="shop" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">🏪</TabsTrigger>
+                  <TabsTrigger value="badges" className="rounded-2xl font-black text-purple-800 text-sm p-2 touch-target">🏆</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
           )}
 
           <TabsContent value="collection">
-            <Card className="border-2 sm:border-4 border-green-400 rounded-2xl shadow-xl bg-gradient-to-br from-green-100 to-emerald-200">
-              <CardHeader className="bg-gradient-to-r from-green-200 to-emerald-300 rounded-t-2xl border-b-2 sm:border-b-4 border-green-400 p-3 sm:p-6">
-                <CardTitle className="flex items-center justify-between text-lg sm:text-2xl text-green-800 font-black">
-                  <span>🐛 Your Bug Collection 🐛</span>
+            <Card className="border-6 border-green-500 rounded-[2rem] bg-gradient-to-br from-green-100 to-emerald-200 animate-bounce-in">
+              <CardHeader className="bg-gradient-to-r from-green-300 to-emerald-400 rounded-t-[2rem] border-b-4 border-green-500 p-4">
+                <CardTitle className="flex items-center justify-between text-xl text-white cartoon-text">
+                  <span className="animate-float">🐛 Your Bug Collection 🐛</span>
                   <Button 
-                    variant="outline" 
+                    variant="destructive" 
                     onClick={resetGame}
-                    className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white border-none rounded-2xl font-black transform hover:scale-110 transition-all shadow-xl text-xs sm:text-base px-2 sm:px-6 py-1 sm:py-3"
+                    size="sm"
+                    className="animate-wiggle"
                   >
                     🔄 Reset
                   </Button>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-3 sm:p-6">
+              <CardContent className="p-4">
                 {sortedBugs.length === 0 ? (
-                  <div className="text-center py-6 sm:py-12">
-                    <BugIcon className="w-12 h-12 sm:w-24 sm:h-24 text-green-600 mx-auto mb-4 animate-bounce" />
-                    <p className="text-lg sm:text-2xl text-green-700 mb-2 font-black">🌟 No bugs yet! 🌟</p>
-                    <p className="text-base sm:text-lg text-green-600 font-bold">🎣 Go catch some bugs!</p>
+                  <div className="text-center py-12 animate-bounce-in">
+                    <BugIcon className="w-24 h-24 text-green-600 mx-auto mb-4 animate-wiggle" />
+                    <p className="text-2xl text-green-700 mb-2 font-black cartoon-text animate-float">🌟 No bugs yet! 🌟</p>
+                    <p className="text-lg text-green-600 font-bold animate-float" style={{animationDelay: '0.5s'}}>🎣 Go catch some bugs!</p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3">
-                    {sortedBugs.map((bug) => (
-                      <BugCard
-                        key={bug.id}
-                        bug={bug}
-                        onClick={() => handleBugSelect(bug)}
-                        isSelected={gameState.selectedBug?.id === bug.id}
-                        compact={true}
-                      />
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                    {sortedBugs.map((bug, index) => (
+                      <div key={bug.id} className="animate-bounce-in" style={{animationDelay: `${index * 0.1}s`}}>
+                        <BugCard
+                          bug={bug}
+                          onClick={() => handleBugSelect(bug)}
+                          isSelected={gameState.selectedBug?.id === bug.id}
+                          compact={true}
+                        />
+                      </div>
                     ))}
                   </div>
                 )}
@@ -457,10 +498,10 @@ const Index = () => {
                 onBattleComplete={handleBattleComplete}
               />
             ) : (
-              <Card className="border-2 sm:border-4 border-yellow-300 rounded-2xl shadow-lg bg-gradient-to-br from-yellow-50 to-orange-50">
-                <CardContent className="text-center py-6 sm:py-12">
-                  <Sword className="w-12 h-12 sm:w-20 sm:h-20 text-yellow-500 mx-auto mb-4 animate-bounce" />
-                  <p className="text-base sm:text-xl text-yellow-600 font-bold">⚔️ Select a bug to battle! ⚔️</p>
+              <Card className="border-6 border-yellow-500 rounded-[2rem] bg-gradient-to-br from-yellow-100 to-orange-100 animate-bounce-in">
+                <CardContent className="text-center py-12">
+                  <Sword className="w-20 h-20 text-yellow-500 mx-auto mb-4 animate-wiggle" />
+                  <p className="text-xl text-yellow-600 font-black cartoon-text animate-float">⚔️ Select a bug to battle! ⚔️</p>
                 </CardContent>
               </Card>
             )}
